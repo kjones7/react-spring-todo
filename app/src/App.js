@@ -1,24 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ToDoForm/>
+  );
+}
+
+function ToDoForm() {
+  const [tasks, setTasks] = useState([]);
+
+  let addTask = function(e) {
+    let task = e.target.querySelector('.add-task-input').value;
+
+    e.preventDefault();
+
+    setTasks([...tasks, task]);
+  }
+
+  const taskListItems = tasks.map((task, index) =>
+    <li key={index}>{task}</li>
+  );
+
+  return (
+      <div className="ToDoForm">
+        <form onSubmit={addTask}>
+          <label>Task</label>
+          <input className="add-task-input"/>
+          <button>Add</button>
+        </form>
+        <div>
+          <ul>
+            {taskListItems}
+          </ul>
+        </div>
+      </div>
   );
 }
 

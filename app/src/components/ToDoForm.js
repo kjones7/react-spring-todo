@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import TaskInput from './TaskInput.js';
 
 function ToDoForm() {
   const [tasks, setTasks] = useState([]);
@@ -17,11 +18,7 @@ function ToDoForm() {
 
   return (
       <div>
-        <form onSubmit={addTask}>
-          <label>Task</label>
-          <input className="add-task-input"/>
-          <button>Add</button>
-        </form>
+        <TaskInput addTaskHandler={addTask} />
         <div>
           <ul>
             {taskListItems}

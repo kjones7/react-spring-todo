@@ -1,4 +1,4 @@
-import './App.css';
+import '../App.css';
 import { useState } from 'react';
 
 function App() {
@@ -23,7 +23,7 @@ function ToDoForm() {
   );
 
   return (
-      <div className="ToDoForm">
+      <div>
         <form onSubmit={addTask}>
           <label>Task</label>
           <input className="add-task-input"/>

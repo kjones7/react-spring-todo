@@ -1,10 +1,14 @@
 function TaskInput(props) {
   let addTask = function(e) {
-    let task = e.target.querySelector('.add-task-input').value;
+    let taskInput = e.target.querySelector('.add-task-input');
+    let task = taskInput.value;
 
     e.preventDefault();
 
     props.setTasks([...props.tasks, task]);
+
+    // Reset input
+    taskInput.value = '';
   }
 
   return (

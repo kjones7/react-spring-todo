@@ -1,3 +1,5 @@
+import React from 'react';
+
 function TaskInput(props) {
   let addTask = function(e) {
     let taskInput = e.target.querySelector('.add-task-input');

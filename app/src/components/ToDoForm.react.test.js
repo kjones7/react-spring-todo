@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 import ToDoForm from './ToDoForm';
 
 // Snapshot tests
-test('Testing ToDoForm (snapshot)', () => {
+test('Initial snapshot', () => {
   const component = renderer.create(
       <ToDoForm />,
   );
@@ -14,7 +14,7 @@ test('Testing ToDoForm (snapshot)', () => {
 });
 
 // Other tests
-test('Testing ToDoForm', async () => {
+test('Fetch and display single task', async () => {
   // setup a DOM element as a render target
   let container = document.createElement("div");
   document.body.appendChild(container);

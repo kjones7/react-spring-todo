@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing ToDoForm (snapshot) 1`] = `
+exports[`Initial snapshot 1`] = `
 <div>
   Loading...
 </div>

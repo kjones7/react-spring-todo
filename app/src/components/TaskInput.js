@@ -28,7 +28,7 @@ function TaskInput(props) {
       <form onSubmit={addTask}>
         <label>Task</label>
         <input className="add-task-input"/>
-        <button>Add</button>
+        <button className="add-btn">Add</button>
       </form>
   );
 }

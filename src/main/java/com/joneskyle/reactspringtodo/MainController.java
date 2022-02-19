@@ -11,7 +11,7 @@ public class MainController {
     private TaskRepository taskRepository;
 
     @PostMapping(path="/add")
-    public @ResponseBody String addNewUser (@RequestParam String desc) {
+    public @ResponseBody String addNewTask (@RequestParam String desc) {
         Task task = new Task();
         task.setDescription(desc);
         taskRepository.save(task);
@@ -21,7 +21,7 @@ public class MainController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<Task> getAllUsers() {
+    public @ResponseBody Iterable<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 }

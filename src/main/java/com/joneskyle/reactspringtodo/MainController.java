@@ -10,13 +10,12 @@ public class MainController {
     @Autowired
     private TaskRepository taskRepository;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path="/add")
-    public @ResponseBody String addNewTask (@RequestParam String desc) {
-        Task task = new Task();
-        task.setDescription(desc);
+    public @ResponseBody String addNewTask (@RequestBody Task task) {
         taskRepository.save(task);
 
-        return "Saved";
+        return "{\"error\": null}";
     }
 
     @CrossOrigin(origins = "http://localhost:3000")

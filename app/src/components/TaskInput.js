@@ -22,6 +22,21 @@ function TaskInput(props) {
 
     // Reset input
     taskInput.value = '';
+
+    // Fetch to-do tasks
+    fetch("http://localhost:8080/demo/add", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({description: task}),
+    })
+        .then(res => res.json())
+        .then((results) => {
+          if (results.error) {
+            console.error(results.error);
+          }
+        });
   }
 
   return (

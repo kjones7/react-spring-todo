@@ -8,6 +8,7 @@ import TaskInput from './TaskInput.js';
  */
 function ToDoForm() {
   const [tasks, setTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -34,8 +35,33 @@ function ToDoForm() {
         )
   }, [])
 
+  const handleCheckboxClick = function(e) {
+    e.preventDefault();
+
+    const checkbox = e.target;
+    const taskListEl = checkbox.closest('li');
+    const indexOfTask = [...taskListEl.parentElement.children].indexOf(taskListEl);
+    const taskCompleted = (checkbox.checked === true);
+
+    if (taskCompleted) {
+      const task = tasks[indexOfTask];
+      setCompletedTasks([...completedTasks, task]);
+      const newTasks = tasks.filter((activeTask, i) => i !== indexOfTask);
+      setTasks(newTasks);
+    } else {
+      const task = completedTasks[indexOfTask];
+      setTasks([...tasks, task]);
+      const newCompletedTasks = completedTasks.filter((completedTask, i) => i !== indexOfTask);
+      setCompletedTasks(newCompletedTasks);
+    }
+  }
+
   const taskListItems = tasks.map((task, index) =>
-      <li key={index}>{task}</li>
+      <li key={index}><input type="checkbox" onClick={handleCheckboxClick}/>{task}</li>
+  );
+
+  const completedTaskListItems = completedTasks.map((completedTask, index) =>
+      <li key={index}><input type="checkbox" onClick={handleCheckboxClick} defaultChecked={true} />{completedTask}</li>
   );
 
   if (error) {
@@ -47,8 +73,14 @@ function ToDoForm() {
         <div>
           <TaskInput tasks={tasks} setTasks={setTasks} />
           <div>
-            <ul>
+            <ul className="task-list">
               {taskListItems}
+            </ul>
+          </div>
+          <div>
+            <strong>Completed Tasks</strong>
+            <ul className="task-list">
+              {completedTaskListItems}
             </ul>
           </div>
         </div>

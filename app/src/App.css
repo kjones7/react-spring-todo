@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+ul.task-list {
+  /* Remove ul styling */
+  list-style-type: none;
+  padding-left: 0;
+}

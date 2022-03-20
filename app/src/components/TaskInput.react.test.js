@@ -17,6 +17,16 @@ test('Valid task gets added, input resets', async () => {
   const setTasks = function(newTasks) {
     allTasks = newTasks;
   }
+  const fakeTasks = [{
+    id: 1,
+    description: fakeTask,
+  }];
+
+  global.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(fakeTasks)
+      })
+  );
 
   // Act
 

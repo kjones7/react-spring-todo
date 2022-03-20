@@ -39,7 +39,7 @@ function ToDoForm() {
     e.preventDefault();
 
     const checkbox = e.target;
-    const taskListEl = checkbox.closest('li');
+    const taskListEl = checkbox.closest('tr');
     const indexOfTask = [...taskListEl.parentElement.children].indexOf(taskListEl);
     const taskCompleted = (checkbox.checked === true);
 
@@ -57,11 +57,17 @@ function ToDoForm() {
   }
 
   const taskListItems = tasks.map((task, index) =>
-      <li key={index}><input type="checkbox" onClick={handleCheckboxClick}/>{task}</li>
+      <tr key={index}>
+        <td><input type="checkbox" onClick={handleCheckboxClick}/></td>
+        <td>{task}</td>
+      </tr>
   );
 
   const completedTaskListItems = completedTasks.map((completedTask, index) =>
-      <li key={index}><input type="checkbox" onClick={handleCheckboxClick} defaultChecked={true} />{completedTask}</li>
+      <tr key={index}>
+        <td><input type="checkbox" onClick={handleCheckboxClick} defaultChecked={true} /></td>
+        <td>{completedTask}</td>
+      </tr>
   );
 
   if (error) {
@@ -73,15 +79,15 @@ function ToDoForm() {
         <div>
           <TaskInput tasks={tasks} setTasks={setTasks} />
           <div>
-            <ul className="task-list">
-              {taskListItems}
-            </ul>
+            <table>
+              <tbody>{taskListItems}</tbody>
+            </table>
           </div>
           <div>
             <strong>Completed Tasks</strong>
-            <ul className="task-list">
-              {completedTaskListItems}
-            </ul>
+            <table>
+              <tbody>{completedTaskListItems}</tbody>
+            </table>
           </div>
         </div>
     );

@@ -26,8 +26,8 @@ test('Fetch and display single task', async () => {
   });
 
   // Assert
-  expect(container.querySelectorAll('li').length).toBe(1);
-  expect(container.querySelectorAll('li')[0].textContent).toBe(fakeTasks[0].description);
+  expect(container.querySelectorAll('tr').length).toBe(1);
+  expect(container.querySelectorAll('tr')[0].textContent).toBe(fakeTasks[0].description);
 
   // cleanup on exiting
   unmountComponentAtNode(container);
@@ -63,9 +63,9 @@ test('Fetch and display multiple tasks', async () => {
   });
 
   // Assert
-  expect(container.querySelectorAll('li').length).toBe(2);
-  expect(container.querySelectorAll('li')[0].textContent).toBe(fakeTasks[0].description);
-  expect(container.querySelectorAll('li')[1].textContent).toBe(fakeTasks[1].description);
+  expect(container.querySelectorAll('tr').length).toBe(2);
+  expect(container.querySelectorAll('tr')[0].textContent).toBe(fakeTasks[0].description);
+  expect(container.querySelectorAll('tr')[1].textContent).toBe(fakeTasks[1].description);
 
   // cleanup on exiting
   unmountComponentAtNode(container);

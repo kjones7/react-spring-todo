@@ -57,4 +57,5 @@ test('Valid task gets added, input resets', async () => {
   unmountComponentAtNode(container);
   container.remove();
   container = null;
+  global.fetch.mockRestore();
 });

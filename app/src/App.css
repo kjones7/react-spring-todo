@@ -37,8 +37,6 @@
   }
 }
 
-/*ul.task-list {*/
-/*  !* Remove ul styling *!*/
-/*  list-style-type: none;*/
-/*  padding-left: 0;*/
-/*}*/
+.task-table .task-table-btns button {
+  margin-left: 5px;
+}

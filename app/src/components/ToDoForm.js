@@ -59,7 +59,13 @@ function ToDoForm() {
   const taskListItems = tasks.map((task, index) =>
       <tr key={index}>
         <td><input type="checkbox" onClick={handleCheckboxClick}/></td>
-        <td>{task}</td>
+        <td>
+          {task}
+        </td>
+        <td className="task-table-btns">
+          <button type="button" className="edit-task btn btn-sm btn-outline-primary"><i className="bi bi-pencil"></i></button>
+          <button type="button" className="remove-task btn btn-sm btn-outline-danger"><i className="bi bi-trash"></i></button>
+        </td>
       </tr>
   );
 
@@ -79,7 +85,7 @@ function ToDoForm() {
         <div>
           <TaskInput tasks={tasks} setTasks={setTasks} />
           <div>
-            <table>
+            <table className="task-table">
               <tbody>{taskListItems}</tbody>
             </table>
           </div>

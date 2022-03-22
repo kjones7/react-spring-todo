@@ -56,6 +56,15 @@ function ToDoForm() {
     }
   }
 
+  const handleRemove = function(e) {
+    const removeBtn = e.target;
+    const taskRow = removeBtn.closest('tr');
+    const indexOfTaskToRemove = [...taskRow.parentElement.querySelectorAll('tr')].indexOf(taskRow);
+
+    const newTasks = tasks.filter((task, i) => i !== indexOfTaskToRemove);
+    setTasks(newTasks);
+  }
+
   const taskListItems = tasks.map((task, index) =>
       <tr key={index}>
         <td><input type="checkbox" onClick={handleCheckboxClick}/></td>
@@ -64,7 +73,12 @@ function ToDoForm() {
         </td>
         <td className="task-table-btns">
           <button type="button" className="edit-task btn btn-sm btn-outline-primary"><i className="bi bi-pencil"></i></button>
-          <button type="button" className="remove-task btn btn-sm btn-outline-danger"><i className="bi bi-trash"></i></button>
+          <button
+              type="button"
+              className="remove-task btn btn-sm btn-outline-danger"
+              onClick={handleRemove}>
+            <i className="bi bi-trash"></i>
+          </button>
         </td>
       </tr>
   );

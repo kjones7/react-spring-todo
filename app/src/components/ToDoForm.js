@@ -3,11 +3,19 @@ import {useEffect, useState} from 'react';
 import TaskInput from './TaskInput.js';
 
 /**
+ * A task on the to-do list
+ * @typedef {Object} Task
+ * @property {string} description - Task description
+ */
+
+/**
  * Components that represents that to-do form
  * @returns {JSX.Element}
  */
 function ToDoForm() {
-  const [tasks, setTasks] = useState([]);
+  /** @type {Task[]} */
+  const initialTasks = [];
+  const [tasks, setTasks] = useState(initialTasks);
   const [completedTasks, setCompletedTasks] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -19,6 +27,7 @@ function ToDoForm() {
         .then(
             (result) => {
               setIsLoaded(true);
+              /** @type Task[] */
               let tasks = [];
               for (const [key, taskJSON] of Object.entries(result)) {
                 tasks.push(taskJSON.description);
@@ -44,13 +53,17 @@ function ToDoForm() {
     const taskCompleted = (checkbox.checked === true);
 
     if (taskCompleted) {
+      /** @type Task */
       const task = tasks[indexOfTask];
       setCompletedTasks([...completedTasks, task]);
+      /** @type Task[] */
       const newTasks = tasks.filter((activeTask, i) => i !== indexOfTask);
       setTasks(newTasks);
     } else {
+      /** @type Task */
       const task = completedTasks[indexOfTask];
       setTasks([...tasks, task]);
+      /** @type Task[] */
       const newCompletedTasks = completedTasks.filter((completedTask, i) => i !== indexOfTask);
       setCompletedTasks(newCompletedTasks);
     }
@@ -61,6 +74,7 @@ function ToDoForm() {
     const taskRow = removeBtn.closest('tr');
     const indexOfTaskToRemove = [...taskRow.parentElement.querySelectorAll('tr')].indexOf(taskRow);
 
+    /** @type Task[] */
     const newTasks = tasks.filter((task, i) => i !== indexOfTaskToRemove);
     setTasks(newTasks);
   }

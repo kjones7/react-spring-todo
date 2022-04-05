@@ -5,20 +5,12 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
-import RecipeForm from "./components/RecipeForm.js";
+import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="recipes/create" element={<RecipeForm />} />
-        </Routes>
+        <App />
       </BrowserRouter>
     </React.StrictMode>,
   document.getElementById('root')

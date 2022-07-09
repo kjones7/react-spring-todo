@@ -4,7 +4,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import TaskInput from './TaskInput';
 
 // Other tests
-test('Valid task gets added, input resets', async () => {
+test('"Add task" handler executes, input resets', async () => {
   // Arrange
 
   // setup a DOM element as a render target
@@ -13,26 +13,13 @@ test('Valid task gets added, input resets', async () => {
 
   // Setup other data
   const fakeTask = 'Task 1';
-  let allTasks = [];
-  const setTasks = function(newTasks) {
-    allTasks = newTasks;
-  }
-  const fakeTasks = [{
-    id: 1,
-    description: fakeTask,
-  }];
-
-  global.fetch = jest.fn().mockImplementation(() =>
-      Promise.resolve({
-        json: () => Promise.resolve(fakeTasks)
-      })
-  );
+  const addTaskMock = jest.fn();
 
   // Act
 
   // Render component
   ReactTestUtils.act(() => {
-    render(<TaskInput tasks={allTasks} setTasks={setTasks} />, container);
+    render(<TaskInput addTask={addTaskMock} />, container);
   });
 
   const addBtn = container.querySelector('.add-btn');
@@ -45,10 +32,7 @@ test('Valid task gets added, input resets', async () => {
   });
 
   // Assert
-
-  // Assert that tasks were added
-  expect(allTasks.length).toBe(1);
-  expect(allTasks[0]).toBe(fakeTask);
+  expect(addTaskMock.mock.calls.length).toBe(1);
 
   // Assert that input resets after tasks were added
   expect(taskInput.value).toBe('');
@@ -57,5 +41,4 @@ test('Valid task gets added, input resets', async () => {
   unmountComponentAtNode(container);
   container.remove();
   container = null;
-  global.fetch.mockRestore();
 });

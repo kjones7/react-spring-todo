@@ -104,6 +104,29 @@ function ToDoForm() {
       </tr>
   );
 
+  /**
+   * Adds a task to the to-do list
+   * @param {Task} task - Task to add
+   */
+  let addTask = function(task) {
+    setTasks([...tasks, task]);
+
+    // Fetch to-do tasks
+    fetch("http://localhost:8080/demo/add", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({description: task}),
+    })
+        .then(res => res.json())
+        .then((results) => {
+          if (results.error) {
+            console.error(results.error);
+          }
+        });
+  }
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
@@ -111,7 +134,7 @@ function ToDoForm() {
   } else {
     return (
         <div>
-          <TaskInput tasks={tasks} setTasks={setTasks} />
+          <TaskInput addTask={addTask} />
           <div>
             <table className="task-table">
               <tbody>{taskListItems}</tbody>

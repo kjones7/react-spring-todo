@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+import ReactTestUtils, { act } from "react-dom/test-utils";
 import ToDoForm from './ToDoForm';
 
 // Other tests
@@ -68,6 +68,50 @@ test('Fetch and display multiple tasks', async () => {
   expect(container.querySelectorAll('tr')[1].textContent).toBe(fakeTasks[1].description);
 
   // cleanup on exiting
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+  global.fetch.mockRestore();
+});
+
+test('"Add task" handler executes, input resets', async () => {
+  // Arrange
+
+  // setup a DOM element as a render target
+  let container = document.createElement("div");
+  document.body.appendChild(container);
+
+  // Setup other data
+  const fakeTask = 'Task 1';
+  const fakeTasks = [];
+
+  global.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(fakeTasks)
+      })
+  );
+
+  // Act
+
+  // Use the asynchronous version of act to apply resolved promises
+  await act(async () => {
+    render(<ToDoForm />, container);
+  });
+
+  const addBtn = container.querySelector('.add-btn');
+  const taskInput = container.querySelector('.add-task-input');
+
+  // Set input text and add task
+  ReactTestUtils.act(() => {
+    taskInput.value = fakeTask;
+    addBtn.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+  });
+
+  // Assert
+  expect(container.querySelectorAll('tr').length).toBe(1);
+  expect(container.querySelectorAll('tr')[0].textContent).toBe(fakeTask);
+
+  // Cleanup
   unmountComponentAtNode(container);
   container.remove();
   container = null;

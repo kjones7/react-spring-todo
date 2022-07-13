@@ -3,11 +3,11 @@ import React from 'react';
 function TaskInput(props) {
   const handleSubmit = function(e) {
     let taskInput = e.target.querySelector('.add-task-input');
-    let task = taskInput.value;
+    let taskDesc = taskInput.value;
 
     e.preventDefault();
 
-    props.addTask(task);
+    props.addTask(taskDesc);
 
     // Reset input
     taskInput.value = '';

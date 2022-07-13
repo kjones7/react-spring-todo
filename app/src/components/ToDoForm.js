@@ -30,7 +30,9 @@ function ToDoForm() {
               /** @type Task[] */
               let tasks = [];
               for (const [key, taskJSON] of Object.entries(result)) {
-                tasks.push(taskJSON.description);
+                tasks.push({
+                  description: taskJSON.description,
+                });
               }
               setTasks(tasks);
             },
@@ -83,7 +85,7 @@ function ToDoForm() {
       <tr key={index}>
         <td><input type="checkbox" onClick={handleCheckboxClick}/></td>
         <td>
-          {task}
+          {task.description}
         </td>
         <td className="task-table-btns">
           <button type="button" className="edit-task btn btn-sm btn-outline-primary"><i className="bi bi-pencil"></i></button>
@@ -100,16 +102,18 @@ function ToDoForm() {
   const completedTaskListItems = completedTasks.map((completedTask, index) =>
       <tr key={index}>
         <td><input type="checkbox" onClick={handleCheckboxClick} defaultChecked={true} /></td>
-        <td>{completedTask}</td>
+        <td>{completedTask.description}</td>
       </tr>
   );
 
   /**
    * Adds a task to the to-do list
-   * @param {Task} task - Task to add
+   * @param {string} taskDesc - Task description
    */
-  let addTask = function(task) {
-    setTasks([...tasks, task]);
+  let addTask = function(taskDesc) {
+    /** @type {Task} */
+    let newTask = {description: taskDesc};
+    setTasks([...tasks, newTask]);
 
     // Fetch to-do tasks
     fetch("http://localhost:8080/demo/add", {
@@ -117,7 +121,7 @@ function ToDoForm() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({description: task}),
+      body: JSON.stringify({description: taskDesc}),
     })
         .then(res => res.json())
         .then((results) => {
